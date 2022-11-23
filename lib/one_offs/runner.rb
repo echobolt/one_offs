@@ -4,9 +4,12 @@ module OneOffs
   class Runner
     class << self
       def run
+        return if ENV.fetch('ONE_OFFS_DISABLE_FLAG', false) == 'true'
+
         Dir.glob(File.join(Dir.pwd, "lib", "one_offs", "*.rb")).sort.each do |one_off|
           execute(one_off)
         end
+
       end
 
       private
